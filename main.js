@@ -76,8 +76,13 @@ window.onload = function() {
     // Mount globe
     myGlobe(globeContainer);
 
+    // Move the countries initialization to the top after DOM elements
+    const countries = countryOrder;  // Use our predefined order
+    let currentCountryIndex = countries.indexOf("WHQ");
+
     // Add countries to dropdown
-    Object.keys(countriesData).sort().forEach(country => {
+    countrySelect.innerHTML = '<option value="">Select a country...</option>';
+    countries.forEach(country => {
         const option = document.createElement('option');
         option.value = country;
         option.textContent = country;
@@ -123,6 +128,9 @@ window.onload = function() {
     countrySelect.addEventListener('change', (e) => {
         const country = e.target.value;
         if (country && countriesData[country]) {
+            // Update current index
+            currentCountryIndex = countries.indexOf(country);
+            
             const targetCoords = countriesData[country];
             
             // Create arc from current location to new location
@@ -356,6 +364,27 @@ window.onload = function() {
         } catch (err) {
             console.error('Error setting up presentation:', err);
             alert('Unable to start presentation mode. Please check if pop-ups are allowed.');
+        }
+    });
+
+    // Add the keyboard navigation function
+    function goToNextCountry() {
+        currentCountryIndex = (currentCountryIndex + 1) % countries.length;
+        const nextCountry = countries[currentCountryIndex];
+        
+        // Update dropdown selection
+        countrySelect.value = nextCountry;
+        
+        // Trigger the change event to use existing navigation logic
+        const changeEvent = new Event('change');
+        countrySelect.dispatchEvent(changeEvent);
+    }
+
+    // Add keyboard listener
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            event.preventDefault(); // Prevent page scroll
+            goToNextCountry();
         }
     });
 }; 
