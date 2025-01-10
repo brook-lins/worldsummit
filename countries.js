@@ -3,6 +3,7 @@ const countryOrder = [
     "WHQ",      // Start with WHQ
     "Mexico",
     "Japan",
+    "WHQ",
     "Brazil",
     "France",
     "Germany",
