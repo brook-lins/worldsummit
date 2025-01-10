@@ -45,7 +45,7 @@ window.onload = function() {
                     <div style="width: 10px; height: 10px; background: #00ff00; border-radius: 50%;"></div>
                 </div>
                 <div style="text-align: center;">
-                    <img src="ai-summit-logo.png" style="width: 30px; height: 30px;">
+                    <img src="Ai-summit-logo.png" style="width: 30px; height: 30px;">
                 </div>
                 <div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);">
                     <div style="
