@@ -78,7 +78,7 @@ window.onload = function() {
 
     // Move the countries initialization to the top after DOM elements
     const countries = countryOrder;  // Use our predefined order
-    let currentCountryIndex = countries.indexOf("WHQ");
+    let currentCountryIndex = 0;  // Start at the beginning (WHQ)
 
     // Add countries to dropdown
     countrySelect.innerHTML = '<option value="">Select a country...</option>';
@@ -128,7 +128,7 @@ window.onload = function() {
     countrySelect.addEventListener('change', (e) => {
         const country = e.target.value;
         if (country && countriesData[country]) {
-            // Update current index
+            // Update current index to match selected country
             currentCountryIndex = countries.indexOf(country);
             
             const targetCoords = countriesData[country];
@@ -367,20 +367,21 @@ window.onload = function() {
         }
     });
 
-    // Add the keyboard navigation function
+    // Update the keyboard navigation function
     function goToNextCountry() {
+        // Increment index and wrap around
         currentCountryIndex = (currentCountryIndex + 1) % countries.length;
         const nextCountry = countries[currentCountryIndex];
         
         // Update dropdown selection
         countrySelect.value = nextCountry;
         
-        // Trigger the change event to use existing navigation logic
+        // Trigger the change event manually
         const changeEvent = new Event('change');
         countrySelect.dispatchEvent(changeEvent);
     }
 
-    // Add keyboard listener
+    // Add keyboard listener (move this outside of any other event handlers)
     document.addEventListener('keydown', (event) => {
         if (event.code === 'Space') {
             event.preventDefault(); // Prevent page scroll
